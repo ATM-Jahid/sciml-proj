@@ -14,15 +14,17 @@ create_box   2 1
 create_atoms  1 region 1
 
 pair_style   adp
-pair_coeff   * * /home/beelbw/lammps_work/potentials/umo.adp U Mo
+pair_coeff   * * /home/afro/builds/UMoly/potentials/U_Mo.alloy.adp U Mo
 
 fix       1 all box/relax iso 0 vmax 0.001
+
+dump       1 all atom 1 dump.min
 
 thermo     1
 thermo_style  custom step epair vol press pxx pyy pzz pxy pxz pyz
 
 min_style    cg
-minimize    0 1e-10 1000 1000# end relaxation
+minimize    0 1e-10 1000 1000
 
 print      $E file output1
 print      $V append output1
