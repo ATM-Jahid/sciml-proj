@@ -1,0 +1,28 @@
+units      metal
+boundary    p p p
+atom_style   atomic
+
+variable    V equal vol
+variable    T equal temp
+variable    P equal press
+variable    E equal pe
+
+lattice     custom 1.0 a1 2.8 0 0 a2 0 5.85 0 a3 0 0 4.9 &
+            basis 0 0 0 basis 0.5 0.5 0 basis 0.5 0.3 0.5 basis 0 0.8 0.5
+region     1 block 0 6 0 3 0 3 units lattice
+create_box   2 1
+create_atoms  1 region 1
+
+pair_style   adp
+pair_coeff   * * /home/beelbw/lammps_work/potentials/umo.adp U Mo
+
+fix       1 all box/relax iso 0 vmax 0.001
+
+thermo     1
+thermo_style  custom step epair vol press pxx pyy pzz pxy pxz pyz
+
+min_style    cg
+minimize    0 1e-10 1000 1000# end relaxation
+
+print      $E file output1
+print      $V append output1
