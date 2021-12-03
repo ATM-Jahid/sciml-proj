@@ -45,7 +45,7 @@ create_atoms	1 region bottom
 set		region jar type/ratio 2 ${MoPart} ${seed}
 
 pair_style	adp
-pair_coeff	* * ./potentials/U_Mo.alloy.adp U Mo
+pair_coeff	* * ../potentials/U_Mo.alloy.adp U Mo
 
 group		up region top
 group		down region bottom
@@ -61,6 +61,8 @@ variable	c2 equal count(mo)
 #################################
 
 fix		1 all box/relax iso 0 vmax 0.001
+
+dump		1 all atom 1 dump.GRAIN
 
 thermo_style	custom step temp pe epair press vol v_c1 v_c2
 thermo		1
