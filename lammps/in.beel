@@ -14,7 +14,7 @@ create_box   2 1
 create_atoms  1 region 1
 
 pair_style   adp
-pair_coeff   * * /home/atomsky/builds/UMoly/potentials/U_Mo.alloy.adp U Mo
+pair_coeff   * * ./potentials/U_Mo.alloy.adp U Mo
 
 fix       1 all box/relax iso 0 vmax 0.001
 
