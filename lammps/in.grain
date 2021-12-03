@@ -11,6 +11,7 @@ atom_style	atomic
 ######    Variables
 #################################
 
+variable	N equal atoms
 variable	V equal vol
 variable	E equal pe
 variable	Pr equal press
@@ -44,7 +45,7 @@ create_atoms	1 region bottom
 set		region jar type/ratio 2 ${MoPart} ${seed}
 
 pair_style	adp
-pair_coeff	* * /home/ahasan3/builds/UMoly/potentials/U_Mo.alloy.adp U Mo
+pair_coeff	* * /home/atomsky/builds/UMoly/potentials/U_Mo.alloy.adp U Mo
 
 group		up region top
 group		down region bottom
@@ -54,3 +55,25 @@ group		u type 1
 group		mo type 2
 variable	c1 equal count(u)
 variable	c2 equal count(mo)
+
+#################################
+######    Minimization
+#################################
+
+fix		1 all box/relax iso 0 vmax 0.001
+
+dump		1 all atom 1 dump.GRAIN
+
+thermo_style	custom step temp pe epair press vol v_c1 v_c2
+thermo		1
+
+min_style	cg
+minimize	1e-8 1e-8 1000 1000
+
+variable	A equal ${Lx}*${Lz}
+variable	ePa equal $E/$N
+
+print		$E file out.GRAIN
+print		${ePa} file out.GRAIN
+print		$A append out.GRAIN
+print		$N append out.GRAIN
