@@ -17,6 +17,9 @@ def calc(fileName):
     p = tilt // 100
     q = (tilt % 100) // 10
     angle = 180 - np.arctan(q/p) * 360 / np.pi
+    csl = p**2 + q**2
+    while csl % 2 == 0:
+        csl /= 2
 
     if '_a100_1' in fileName:
         global Es
@@ -28,8 +31,10 @@ def calc(fileName):
     N = float(jar[2].split()[0])
     gbe = 16 * (E - Es) * N / A
 
-    writeFile = f'csv.{meta}_c{comp}'
+    writeFile = f'csv.{meta}'
     with open(writeFile, 'a') as f:
+        for put in [comp, tilt, angle, csl]:
+            f.write(str(put)+ ',')
         f.write(str(gbe) + '\n')
 
 if __name__ == "__main__":
