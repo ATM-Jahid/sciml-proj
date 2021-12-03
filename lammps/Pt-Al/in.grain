@@ -51,10 +51,10 @@ group		up region top
 group		down region bottom
 delete_atoms	overlap 2.7 up down compress yes
 
-group		al type 1
-group		fe type 2
-variable	c1 equal count(al)
-variable	c2 equal count(fe)
+group		pt type 1
+group		al type 2
+variable	c1 equal count(pt)
+variable	c2 equal count(al)
 
 #################################
 ######    Minimization
