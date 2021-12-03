@@ -2,14 +2,15 @@
 
 import sys
 import numpy as np
-import matplotlib.pyplot as plt
 
 Es = 0
-def draw(fileName):
+def calc(fileName):
     with open(fileName, 'r') as f:
         jar = f.readlines()
 
     i = fileName.find('_c')
+    j = fileName.find('.')
+    meta = fileName[j+1:i]
     comp = float(fileName[i+2:i+5])
     i = fileName.find('_a')
     tilt = int(fileName[i+2:i+5])
@@ -27,12 +28,12 @@ def draw(fileName):
     N = float(jar[2].split()[0])
     gbe = 16 * (E - Es) * N / A
 
-    plt.scatter(angle, gbe)
+    writeFile = f'csv.{meta}_c{comp}'
+    with open(writeFile, 'a') as f:
+        f.write(str(gbe) + '\n')
 
 if __name__ == "__main__":
     folder = sys.argv[1:]
     print(folder)
     for file in folder:
-        draw(file)
-
-    plt.show()
+        calc(file)
