@@ -66,7 +66,7 @@ thermo_style	custom step temp pe epair press vol v_c1 v_c2
 thermo		1
 
 min_style	cg
-minimize	1e-8 1e-8 1000 1000
+minimize	0 1e-10 1000 1000
 
 variable	A equal ${Lx}*${Lz}
 variable	ePa equal $E/$N

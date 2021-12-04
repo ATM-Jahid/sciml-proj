@@ -44,7 +44,7 @@ create_atoms	1 region bottom
 set		region jar type/ratio 2 ${MoPart} ${seed}
 
 pair_style	adp
-pair_coeff	* * ./potentials/library.AlNi.meam Al Ni ../potentials/AlNi.meam Al Ni
+pair_coeff	* * ../potentials/library.AlNi.meam Al Ni ../potentials/AlNi.meam Al Ni
 
 group		up region top
 group		down region bottom

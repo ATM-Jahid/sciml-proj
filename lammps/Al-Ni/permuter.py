@@ -11,4 +11,4 @@ for itr in perm:
     os.system(f'$HOME/builds/UMoly/scripts/replicator.py \
             -l 3.75 -x 50 -y 200 -z 30 -a {itr[1]} -M {itr[0]} \
             -i grain -o alni_c{itr[0]}_a{itr[1]}_')
-    os.system(f'$HOME/builds/lammps/build/lmp -i in.alni_c{itr[0]}_a{itr[1]}_1')
+    os.system(f'mpirun /home/ahasan3/miniconda3/bin/lmp_mpi -i in.alni_c{itr[0]}_a{itr[1]}_1')

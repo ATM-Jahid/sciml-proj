@@ -20,7 +20,7 @@ def draw(fileName):
     if '_a100_1' in fileName:
         global Es
         Es = float(jar[0].split()[0])
-        angle = 0
+        angle = 0.001
 
     E = float(jar[0].split()[0])
     A = float(jar[1].split()[0])

@@ -44,7 +44,7 @@ create_atoms	1 region bottom
 set		region jar type/ratio 2 ${MoPart} ${seed}
 
 pair_style	eam/alloy
-pair_coeff	* * ./potentials/PtAu.eam.alloy Pt Au
+pair_coeff	* * ../potentials/PtAu.eam.alloy Pt Au
 
 group		up region top
 group		down region bottom
