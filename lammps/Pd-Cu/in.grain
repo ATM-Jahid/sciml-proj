@@ -45,15 +45,15 @@ create_atoms	1 region bottom
 set		region jar type/ratio 2 ${MoPart} ${seed}
 
 pair_style	meam
-pair_coeff	* * ../potentials/library.FeCu.meam Fe Cu ../potentials/FeCu.meam Fe Cu
+pair_coeff	* * ../potentials/library.PdCu.meam Pd Cu ../potentials/PdCu.meam Pd Cu
 
 group		up region top
 group		down region bottom
 delete_atoms	overlap 2.7 up down compress yes
 
-group		fe type 1
+group		pd type 1
 group		cu type 2
-variable	c1 equal count(fe)
+variable	c1 equal count(pd)
 variable	c2 equal count(cu)
 
 #################################

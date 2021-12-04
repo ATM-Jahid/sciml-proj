@@ -43,17 +43,17 @@ lattice		fcc ${latCons} orient x -$Q -$P 0 orient y $P -$Q 0 orient z 0 0 1
 create_atoms	1 region bottom
 set		region jar type/ratio 2 ${MoPart} ${seed}
 
-pair_style	adp
-pair_coeff	* * ./potentials/library.AlNi.meam Al Ni ../potentials/AlNi.meam Al Ni
+pair_style	eam/alloy
+pair_coeff	* * ./potentials/PtAu.eam.alloy Pt Au
 
 group		up region top
 group		down region bottom
 delete_atoms	overlap 2.7 up down compress yes
 
-group		al type 1
-group		ni type 2
-variable	c1 equal count(al)
-variable	c2 equal count(ni)
+group		pt type 1
+group		au type 2
+variable	c1 equal count(pt)
+variable	c2 equal count(au)
 
 #################################
 ######    Minimization
