@@ -41,4 +41,6 @@ if __name__ == "__main__":
     folder = sys.argv[1:]
     print(folder)
     for file in folder:
+        if 'old' in file or 'plain' in file:
+            continue
         calc(file)

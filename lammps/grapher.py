@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 Es = 0
+
 def draw(fileName):
     with open(fileName, 'r') as f:
         jar = f.readlines()
@@ -33,6 +34,8 @@ if __name__ == "__main__":
     folder = sys.argv[1:]
     print(folder)
     for file in folder:
+        if 'old' in file or 'plain' in file:
+            continue
         draw(file)
 
     plt.show()
