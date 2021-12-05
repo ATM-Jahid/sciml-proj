@@ -34,26 +34,18 @@ variable	seed equal SEED
 #################################
 
 region		jar block -${xHalf} ${xHalf} -${yHalf} ${yHalf} -${zHalf} ${zHalf}
+lattice		fcc ${latCons}
 create_box	2 jar
-region		top block INF INF -0.1 ${yHalf} INF INF
-lattice		fcc ${latCons} orient x $P $Q 0 orient y -$Q $P 0 orient z 0 0 1
-create_atoms	1 region top
-region		bottom block INF INF -${yHalf} 0.1 INF INF
-lattice		fcc ${latCons} orient x -$Q -$P 0 orient y $P -$Q 0 orient z 0 0 1
-create_atoms	1 region bottom
+create_atoms	1 region jar
 set		region jar type/ratio 2 ${MoPart} ${seed}
 
-pair_style	adp
-pair_coeff	* * ../potentials/library.AlNi.meam Al Ni ../potentials/AlNi.meam Al Ni
-
-group		up region top
-group		down region bottom
-delete_atoms	overlap 2.7 up down compress yes
+pair_style	meam
+pair_coeff	* * ../potentials/library.AlFe.meam Al Fe ../potentials/AlFe.meam Al Fe
 
 group		al type 1
-group		ni type 2
+group		fe type 2
 variable	c1 equal count(al)
-variable	c2 equal count(ni)
+variable	c2 equal count(fe)
 
 #################################
 ######    Minimization

@@ -1,0 +1,69 @@
+#################################
+######    Initialization
+#################################
+
+log		log.plain2
+units		metal
+boundary	p p p
+atom_style	atomic
+
+#################################
+######    Variables
+#################################
+
+variable	N equal atoms
+variable	V equal vol
+variable	E equal pe
+variable	Pr equal press
+variable	T equal temp
+variable	Lx equal lx
+variable	Ly equal ly
+variable	Lz equal lz
+
+variable	xHalf equal 26.25
+variable	yHalf equal 101.5
+variable	zHalf equal 15.75
+variable	latCons equal 3.5
+variable	P equal 1
+variable	Q equal 0
+variable	MoPart equal 0.2
+variable	seed equal 34039
+
+#################################
+######    Geometry
+#################################
+
+region		jar block -${xHalf} ${xHalf} -${yHalf} ${yHalf} -${zHalf} ${zHalf}
+lattice		fcc ${latCons}
+create_box	2 jar
+create_atoms	1 region jar
+set		region jar type/ratio 2 ${MoPart} ${seed}
+
+pair_style	eam/alloy
+pair_coeff	* * ../potentials/CuNi.eam.alloy Cu Ni
+
+group		cu type 1
+group		ni type 2
+variable	c1 equal count(cu)
+variable	c2 equal count(ni)
+
+#################################
+######    Minimization
+#################################
+
+fix		1 all box/relax iso 0 vmax 0.001
+
+dump		1 all atom 10 dump.plain2
+
+thermo_style	custom step temp pe epair press vol v_c1 v_c2
+thermo		1
+
+min_style	cg
+minimize	0 1e-10 1000 1000
+
+variable	A equal ${Lx}*${Lz}
+variable	ePa equal $E/$N
+
+print		${ePa} file out.plain2
+print		$A append out.plain2
+print		$N append out.plain2
